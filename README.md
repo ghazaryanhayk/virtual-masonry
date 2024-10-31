@@ -1,50 +1,45 @@
-# React + TypeScript + Vite
+# Virtualized Masonry Grid
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Getting started
 
-Currently, two official plugins are available:
+To run the application 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Generate API_KEY at https://pexels.com
 
-## Expanding the ESLint configuration
+2. Create `.env.local` file and add `VITE_PEXELS_API_KEY` environment variable
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+   ```
+   VITE_PEXELS_API_KEY=<your-api-key>
+   ```
 
-- Configure the top-level `parserOptions` property like this:
+3. Run the following commands
+    
+   ```
+   npm run install
+   npm run build
+   npm run preview
+   ```
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Masonry algorithm
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+1. Based on predefined column width and window width determine an amount of columns
+2. Iteratively place masonry items in the shortest column up to that point
+3. Skip rendering an item which is not intersect with the viewport (including pre-defined threshold).
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Performance measurements
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Lighthouse results with production build in local environment (w/o any extension enabled)
+
+IMAGE and Report attached
+
+## Design and styling
+
+Styling is kept minimal and is applied solely for layout purposes.
+
+## Implemented features
+
+- Virtualized responsive masonry grid layout
+- Photo preview with additional details (Photographer, Description)
+- Search by keywords
+- Load more photos
+
