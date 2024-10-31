@@ -31,6 +31,10 @@ export function VirtualMasonry({ photos }: { photos: Photo[] }) {
     20,
   );
 
+  if (!photos.length) {
+    return <div>No results</div>;
+  }
+
   return (
     <>
       <div
