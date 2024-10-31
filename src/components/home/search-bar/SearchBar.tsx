@@ -22,6 +22,7 @@ export function SearchBar({ onChange, loading }: SearchBarProps) {
       <InputWrapper isLoading={loading}>
         <input
           type="text"
+          name="search"
           placeholder="Search..."
           onChange={handleDebouncedChange}
           value={value}
