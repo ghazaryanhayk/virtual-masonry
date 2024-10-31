@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.tsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { homeLoader } from "./loaders/homeLoader.ts";
 import { previewLoader } from "./loaders/previewLoader.ts";
 
