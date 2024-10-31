@@ -37,7 +37,7 @@ export function MasonryGridItem({
   );
 }
 
-const GridItem = styled("div")`
+const GridItem = styled.div`
   position: absolute;
   box-sizing: border-box;
   left: 0;
