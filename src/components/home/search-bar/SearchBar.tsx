@@ -14,7 +14,7 @@ export function SearchBar({ onChange, loading }: SearchBarProps) {
       setValue(e.currentTarget.value);
       onChange(e.currentTarget.value);
     },
-    [],
+    [onChange],
   );
 
   return (

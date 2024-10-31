@@ -6,12 +6,16 @@ import {
   COLUMN_WIDTH,
   THRESHOLD,
 } from "./utils/masonry.ts";
-import VirtualMasonryGridItem from "./VirtualMasonryGridItem.tsx";
+import { MasonryGridItem } from "./MasonryGridItem.tsx";
 import { useWindowWidth } from "../../../hooks/useWindowWidth.ts";
 import { useDebouncedCallback } from "../../../hooks/useDebounceCallback.ts";
 import { Outlet } from "react-router-dom";
 
-export function VirtualMasonry({ photos }: { photos: Photo[] }) {
+type MasonryProps = {
+  photos: Photo[];
+};
+
+export function Masonry({ photos }: MasonryProps) {
   const windowSize = useWindowWidth();
 
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -67,7 +71,7 @@ export function VirtualMasonry({ photos }: { photos: Photo[] }) {
             }
 
             return (
-              <VirtualMasonryGridItem
+              <MasonryGridItem
                 key={photo.raw.id}
                 id={photo.raw.id}
                 src={photo.raw.src.medium}

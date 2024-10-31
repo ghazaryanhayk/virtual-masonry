@@ -11,7 +11,7 @@ type MasonryGridItemProps = {
   alt?: string;
 };
 
-export default function VirtualMasonryGridItem({
+export function MasonryGridItem({
   id,
   src,
   top,

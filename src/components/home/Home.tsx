@@ -1,11 +1,14 @@
 import { useCallback, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import type { PhotosWithTotalResults } from "pexels";
-import { VirtualMasonry } from "./masonry/VirtualMasonry.tsx";
+import { Masonry } from "./masonry/Masonry.tsx";
 import { SearchBar } from "./search-bar/SearchBar.tsx";
 import { LoadMore } from "./load-more/LoadMore.tsx";
 import { useDebouncedCallback } from "../../hooks/useDebounceCallback.ts";
-import { pexelsClient } from "../../services/pexels.api.ts";
+import {
+  HIGHEST_PER_PAGE_SIZE,
+  pexelsClient,
+} from "../../services/pexels.api.ts";
 
 export function Home() {
   const loaderData = useLoaderData() as PhotosWithTotalResults;
@@ -15,7 +18,7 @@ export function Home() {
 
   const handleDebouncedSearch = useDebouncedCallback(async (value) => {
     setSearchValue(value);
-    if (value === "") {
+    if (!value) {
       setData(loaderData);
       return;
     }
@@ -24,7 +27,7 @@ export function Home() {
       setLoading(true);
       const searchResponse = await pexelsClient.photos.search({
         query: value,
-        per_page: 80,
+        per_page: HIGHEST_PER_PAGE_SIZE,
       });
 
       setData(searchResponse as PhotosWithTotalResults);
@@ -48,7 +51,7 @@ export function Home() {
   return (
     <>
       <SearchBar onChange={handleDebouncedSearch} loading={loading} />
-      <VirtualMasonry photos={data.photos} />
+      <Masonry photos={data.photos} />
       <LoadMore
         onLoad={handleOnLoad}
         page={data.page}
