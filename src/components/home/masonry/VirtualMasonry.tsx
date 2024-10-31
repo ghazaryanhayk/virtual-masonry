@@ -7,10 +7,11 @@ import {
   THRESHOLD,
 } from "./utils/masonry.ts";
 import VirtualMasonryGridItem from "./VirtualMasonryGridItem.tsx";
-import useWindowWidth from "../../../hooks/useWindowWidth.ts";
-import useDebouncedCallback from "../../../hooks/useDebounceCallback.ts";
+import { useWindowWidth } from "../../../hooks/useWindowWidth.ts";
+import { useDebouncedCallback } from "../../../hooks/useDebounceCallback.ts";
+import { Outlet } from "react-router-dom";
 
-export default function VirtualMasonry({ photos }: { photos: Photo[] }) {
+export function VirtualMasonry({ photos }: { photos: Photo[] }) {
   const windowSize = useWindowWidth();
 
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -31,50 +32,53 @@ export default function VirtualMasonry({ photos }: { photos: Photo[] }) {
   );
 
   return (
-    <div
-      ref={wrapperRef}
-      onScroll={handleDebounceScroll}
-      style={{ height: "80dvh", width: "100dvw", overflow: "auto" }}
-    >
-      <GridWrapper
-        ref={scrollingAreaRef}
-        style={{
-          height: maxHeight,
-          margin: "0 auto",
-          width: Math.floor(windowSize / COLUMN_WIDTH) * COLUMN_WIDTH,
-        }}
+    <>
+      <div
+        ref={wrapperRef}
+        onScroll={handleDebounceScroll}
+        style={{ height: "80dvh", width: "100dvw", overflow: "auto" }}
       >
-        {items.map((photo) => {
-          const photoTop = photo.top;
-          const photoBottom = photo.top + photo.height;
+        <GridWrapper
+          ref={scrollingAreaRef}
+          style={{
+            height: maxHeight,
+            margin: "0 auto",
+            width: Math.floor(windowSize / COLUMN_WIDTH) * COLUMN_WIDTH,
+          }}
+        >
+          {items.map((photo) => {
+            const photoTop = photo.top;
+            const photoBottom = photo.top + photo.height;
 
-          const viewportTop = scrollPosition;
-          const viewportBottom =
-            scrollPosition + (wrapperRef.current?.clientHeight ?? 0);
+            const viewportTop = scrollPosition;
+            const viewportBottom =
+              scrollPosition + (wrapperRef.current?.clientHeight ?? 0);
 
-          // hide item when it's not in viewport (including thresholds)
-          if (
-            photoBottom < viewportTop - THRESHOLD ||
-            photoTop > viewportBottom + THRESHOLD
-          ) {
-            return null;
-          }
+            // hide item when it's not in viewport (including thresholds)
+            if (
+              photoBottom < viewportTop - THRESHOLD ||
+              photoTop > viewportBottom + THRESHOLD
+            ) {
+              return null;
+            }
 
-          return (
-            <VirtualMasonryGridItem
-              key={photo.raw.id}
-              id={photo.raw.id}
-              src={photo.raw.src.medium}
-              top={photo.top}
-              left={photo.left}
-              height={photo.height}
-              width={photo.width}
-              alt={photo.raw.alt ?? ""}
-            />
-          );
-        })}
-      </GridWrapper>
-    </div>
+            return (
+              <VirtualMasonryGridItem
+                key={photo.raw.id}
+                id={photo.raw.id}
+                src={photo.raw.src.medium}
+                top={photo.top}
+                left={photo.left}
+                height={photo.height}
+                width={photo.width}
+                alt={photo.raw.alt ?? ""}
+              />
+            );
+          })}
+        </GridWrapper>
+      </div>
+      <Outlet />
+    </>
   );
 }
 

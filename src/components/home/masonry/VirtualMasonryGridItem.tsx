@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 type MasonryGridItemProps = {
   id: number;
@@ -11,6 +12,7 @@ type MasonryGridItemProps = {
 };
 
 export default function VirtualMasonryGridItem({
+  id,
   src,
   top,
   left,
@@ -22,7 +24,15 @@ export default function VirtualMasonryGridItem({
     <GridItem
       style={{ height, width, transform: `translate(${left}px, ${top}px)` }}
     >
-      <img src={src} alt={alt ?? ""} title={alt ?? ""} />
+      <Link to={`${id}`} key={id} aria-label={`${id} - ${alt}`}>
+        <img
+          src={src}
+          alt={alt ?? ""}
+          title={alt ?? ""}
+          height={height}
+          width={width}
+        />
+      </Link>
     </GridItem>
   );
 }

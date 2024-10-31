@@ -1,6 +1,6 @@
 import { useCallback, useRef } from "react";
 
-export default function useDebouncedCallback(
+export function useDebouncedCallback(
   callback: (...args: never[]) => void,
   delay: number,
 ) {
