@@ -24,7 +24,7 @@ export function MasonryGridItem({
     <GridItem
       style={{ height, width, transform: `translate(${left}px, ${top}px)` }}
     >
-      <Link to={`${id}`} key={id} aria-label={`${id} - ${alt}`}>
+      <Link to={`${id}`} aria-label={`${id} - ${alt}`}>
         <img
           src={src}
           alt={alt ?? ""}

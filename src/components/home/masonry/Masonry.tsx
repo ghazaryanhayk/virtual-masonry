@@ -54,7 +54,7 @@ export function Masonry({ photos }: MasonryProps) {
             width: Math.floor(windowSize / COLUMN_WIDTH) * COLUMN_WIDTH,
           }}
         >
-          {items.map((photo) => {
+          {items.map((photo, index) => {
             const photoTop = photo.top;
             const photoBottom = photo.top + photo.height;
 
@@ -62,7 +62,7 @@ export function Masonry({ photos }: MasonryProps) {
             const viewportBottom =
               scrollPosition + (wrapperRef.current?.clientHeight ?? 0);
 
-            // hide item when it's not in viewport (including thresholds)
+            // skip item when it's not in viewport (including thresholds)
             if (
               photoBottom < viewportTop - THRESHOLD ||
               photoTop > viewportBottom + THRESHOLD
@@ -72,7 +72,9 @@ export function Masonry({ photos }: MasonryProps) {
 
             return (
               <MasonryGridItem
-                key={photo.raw.id}
+                // index used as part of key as Pexels api may return the same
+                // photo (with the same ID) in case of curated result multiple times
+                key={`${photo.raw.id}_${index}`}
                 id={photo.raw.id}
                 src={photo.raw.src.medium}
                 top={photo.top}

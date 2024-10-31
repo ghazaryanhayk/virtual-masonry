@@ -23,19 +23,14 @@ export function Home() {
       return;
     }
 
-    try {
-      setLoading(true);
-      const searchResponse = await pexelsClient.photos.search({
-        query: value,
-        per_page: HIGHEST_PER_PAGE_SIZE,
-      });
+    setLoading(true);
+    const searchResponse = await pexelsClient.photos.search({
+      query: value,
+      per_page: HIGHEST_PER_PAGE_SIZE,
+    });
 
-      setData(searchResponse as PhotosWithTotalResults);
-    } catch (error) {
-      //   TODO: Handle error case
-    } finally {
-      setLoading(false);
-    }
+    setData(searchResponse as PhotosWithTotalResults);
+    setLoading(false);
   }, 500);
 
   const handleOnLoad = useCallback(

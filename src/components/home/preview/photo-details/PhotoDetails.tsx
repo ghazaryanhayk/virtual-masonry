@@ -21,6 +21,7 @@ const PhotoDetail = styled.div`
 `;
 
 const PhotoSource = styled.img`
-  max-width: 100%;
+  max-width: 90dvw;
+  max-height: 80dvh;
   align-self: center;
 `;
